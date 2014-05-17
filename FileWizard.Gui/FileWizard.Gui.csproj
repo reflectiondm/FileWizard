@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,12 +54,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FolderControl.xaml.cs">
+      <DependentUpon>FolderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FolderSelector\FolderSelectorView.xaml.cs">
       <DependentUpon>FolderSelectorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="FolderSelector\FolderSelectorViewModel.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Page Include="Controls\FolderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FolderSelector\FolderSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +84,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
