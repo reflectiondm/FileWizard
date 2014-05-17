@@ -6,12 +6,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <controls:FolderControl FolderPath="{Binding FolderPath}"/>
-        <TextBlock Grid.Column="1" Text="{Binding FolderPath}"/>
-    </Grid>
+        <Grid Height="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="folderPathTextBox" Text="{Binding FolderPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Column="1" Click="Button_Click" Width="40" 
+                Content="..." 
+                ToolTip="Browse folder"/>
+        </Grid>
 </UserControl>
