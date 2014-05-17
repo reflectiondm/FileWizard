@@ -53,9 +53,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FolderSelectorViewModel.cs" />
+    <Compile Include="FolderSelector\FolderSelectorView.xaml.cs">
+      <DependentUpon>FolderSelectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FolderSelector\FolderSelectorViewModel.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Page Include="FolderSelector\FolderSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

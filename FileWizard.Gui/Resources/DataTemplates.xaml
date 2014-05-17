@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local ="clr-namespace:FileWizard.Gui">
+                    xmlns:local ="clr-namespace:FileWizard.Gui.FolderSelector">
     <DataTemplate DataType="{x:Type local:FolderSelectorViewModel}">
-        <TextBlock Text="This is FolderSelectorTemplate"/>
+        <local:FolderSelectorView DataContext="{Binding}"/>
     </DataTemplate>
 </ResourceDictionary>
