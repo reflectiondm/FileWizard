@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="FolderSelector\FolderSelectorViewModel.cs" />
     <Compile Include="Infrastructure\INavigationManager.cs" />
+    <Compile Include="Infrastructure\NavigationManager.cs" />
     <Compile Include="IViewModel.cs" />
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\ViewModelBase.cs" />

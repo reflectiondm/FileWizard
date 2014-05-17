@@ -21,7 +21,7 @@ namespace FileWizard.Gui
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
-            INavigationManager navigationManager = null;
+            INavigationManager navigationManager = new NavigationManager(mainWindow);
             var folderSelectorViewModel = new FolderSelectorViewModel(navigationManager);
             var mainWindowViewModel = new MainWindowViewModel(folderSelectorViewModel, navigationManager);
 
