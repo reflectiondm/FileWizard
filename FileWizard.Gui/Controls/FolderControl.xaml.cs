@@ -14,16 +14,26 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Forms = System.Windows.Forms;
 
-namespace FileWizard.Gui.FolderSelector
+namespace FileWizard.Gui.Controls
 {
     /// <summary>
-    /// Interaction logic for FolderSelectorView.xaml
+    /// Interaction logic for FolderControl.xaml
     /// </summary>
-    public partial class FolderSelectorView : UserControl
+    public partial class FolderControl : UserControl
     {
-        public FolderSelectorView()
+        public FolderControl()
         {
             InitializeComponent();
+        }
+
+        public static readonly DependencyProperty FolderPathProperty = DependencyProperty.Register(
+            "FolderPath", typeof(string), typeof(FolderControl), 
+            new FrameworkPropertyMetadata(){BindsTwoWayByDefault = true});
+
+        public string FolderPath
+        {
+            get { return (string)GetValue(FolderPathProperty); }
+            set { SetValue(FolderPathProperty, value); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,11 +46,8 @@ namespace FileWizard.Gui.FolderSelector
                 if (result == Forms.DialogResult.Cancel)
                     return;
 
-                folderPathTextBox.Text = openFolderDialog.SelectedPath;
+                FolderPath = openFolderDialog.SelectedPath;
             }
-
-            folderPathTextBox.Focus();
-            folderPathTextBox.CaretIndex = folderPathTextBox.Text.Length;
         }
     }
 }
