@@ -59,8 +59,5 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(fired);
         }
-
-        [TestMethod]
-        public void 
     }
 }
