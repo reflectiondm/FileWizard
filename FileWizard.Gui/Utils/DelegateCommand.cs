@@ -31,12 +31,20 @@ namespace FileWizard.Gui.Utils
             return _canExecuteAction(parameter);
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged = delegate { };
 
 
         public void Execute(object parameter)
         {
             _executeAction(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null)
+            {
+                CanExecuteChanged(this, EventArgs.Empty);
+            }
         }
     }
 }

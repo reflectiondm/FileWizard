@@ -12,11 +12,13 @@ namespace FileWizard.Gui.FolderSelector
     {
         public FolderSelectorViewModel()
         {
-            GoToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
-            CancelCommand = new DelegateCommand(d => {});
+            _goToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
+            _cancelCommand = new DelegateCommand(d => {});
         }
 
         private string _folderPath;
+        private DelegateCommand _goToNextStepCommand;
+        private DelegateCommand _cancelCommand;
         public string FolderPath
         {
             get
@@ -26,12 +28,13 @@ namespace FileWizard.Gui.FolderSelector
             set
             {
                 _folderPath = value;
+                _goToNextStepCommand.RaiseCanExecuteChanged();
                 RaiseOnPropertyChanged("FolderPath");
             }
         }
 
-        public ICommand GoToNextStepCommand { get; private set; }
-        public ICommand CancelCommand { get; private set; }
+        public ICommand GoToNextStepCommand { get { return _goToNextStepCommand; } }
+        public ICommand CancelCommand { get { return _cancelCommand; } }
 
         private void GoToNextStep()
         { }

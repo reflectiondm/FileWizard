@@ -48,5 +48,19 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void WhenFolderPathChanges_GoToNextStepFiresCanExecuteChangedEvent()
+        {
+            var fired = false;
+            _sut.GoToNextStepCommand.CanExecuteChanged += (s, e) => fired = true;
+
+            _sut.FolderPath = "SomeFolderPath";
+
+            Assert.IsTrue(fired);
+        }
+
+        [TestMethod]
+        public void 
     }
 }
