@@ -1,4 +1,5 @@
 ﻿using FileWizard.Gui.FolderSelector;
+using FileWizard.Gui.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,14 @@ namespace FileWizard.Gui
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel(IViewModel folderSelectorVM)
+        public MainWindowViewModel(IViewModel viewModel, INavigationManager navigationManager)
         {
-            ActiveViewModel = folderSelectorVM;
-        }
-
-        public MainWindowViewModel()
-            : this(new FolderSelectorViewModel(null))
-        {
-
+            ActiveViewModel = viewModel;
+            _navigationManager = navigationManager;
         }
 
         private IViewModel _activeViewModel;
+        private INavigationManager _navigationManager;
         public IViewModel ActiveViewModel
         {
             get
