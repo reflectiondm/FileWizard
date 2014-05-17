@@ -62,7 +62,8 @@
     </Compile>
     <Compile Include="FolderSelector\FolderSelectorViewModel.cs" />
     <Compile Include="IViewModel.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Utils\DelegateCommand.cs" />
+    <Compile Include="Utils\ViewModelBase.cs" />
     <Page Include="Controls\FolderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

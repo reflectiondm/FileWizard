@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FileWizard.Gui.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FileWizard.Gui.FolderSelector
 {
@@ -10,7 +12,8 @@ namespace FileWizard.Gui.FolderSelector
     {
         public FolderSelectorViewModel()
         {
-            FolderPath = "This is FolderPath. Binding works";
+            GoToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
+            CancelCommand = new DelegateCommand(d => {});
         }
 
         private string _folderPath;
@@ -25,6 +28,20 @@ namespace FileWizard.Gui.FolderSelector
                 _folderPath = value;
                 RaiseOnPropertyChanged("FolderPath");
             }
+        }
+
+        public ICommand GoToNextStepCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
+
+        private void GoToNextStep()
+        { }
+
+        private bool CanGoToNextStep()
+        {
+            var result = string.IsNullOrEmpty(FolderPath) ?
+                false :
+                true;
+            return result;
         }
     }
 }
