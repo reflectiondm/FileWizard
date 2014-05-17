@@ -15,7 +15,7 @@ namespace FileWizard.Gui
         }
 
         public MainWindowViewModel()
-            : this(new FolderSelectorViewModel())
+            : this(new FolderSelectorViewModel(null))
         {
 
         }
