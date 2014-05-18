@@ -14,8 +14,26 @@ namespace FileWizard.Gui.Infrastructure
 
         void CloseWindow();
 
+     
+
         event EventHandler OnToNextStep;
 
         event EventHandler OnToPreviousStep;
+
+
+        //todo: next two members clearly indicate that navigation manager should be refactored into event aggregator.
+        //it will do for now, though
+        void ChooseFolder(string path);
+
+        event EventHandler<FolderChosenEventArgs> OnFolderChosen;
+    }
+
+    public class FolderChosenEventArgs : EventArgs
+    {
+        public FolderChosenEventArgs(string folderPath)
+        {
+            FolderPath = folderPath;
+        }
+        public string FolderPath { get; private set; }
     }
 }

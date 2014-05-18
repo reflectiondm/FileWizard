@@ -50,6 +50,7 @@ namespace FileWizard.Gui.WizardSteps
 
         private void GoToNextStep()
         {
+            _navigationManager.ChooseFolder(FolderPath);
             _navigationManager.GoToNextView();
         }
 

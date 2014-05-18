@@ -89,5 +89,14 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(_navigationManagerMock.CloseWindowWasCalled);
         }
+
+        [TestMethod]
+        public void WhenGoNextStep_FolderPathChosenEventInvoked()
+        {
+            _sut.FolderPath = "SomePath";
+            _sut.GoToNextStepCommand.Execute(null);
+
+            Assert.AreEqual(_sut.FolderPath, _navigationManagerMock.ChosenFolder);
+        }
     }
 }
