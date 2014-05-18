@@ -1,4 +1,4 @@
-﻿using FileWizard.Gui.FolderSelector;
+﻿using FileWizard.Gui.WizardSteps;
 using FileWizard.Gui.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,11 @@ namespace FileWizard.Gui
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private IViewModel _activeViewModel;
+        private INavigationManager _navigationManager;
+        private IViewModel[] _steps;
+        private int _currentIndex;
+
         public MainWindowViewModel(IEnumerable<IViewModel> viewModels, INavigationManager navigationManager)
         {
             if (viewModels == null)
@@ -46,12 +51,6 @@ namespace FileWizard.Gui
             }
         }
 
-
-
-        private IViewModel _activeViewModel;
-        private INavigationManager _navigationManager;
-        private IViewModel[] _steps;
-        private int _currentIndex;
         public IViewModel ActiveViewModel
         {
             get

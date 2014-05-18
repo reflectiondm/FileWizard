@@ -1,4 +1,4 @@
-﻿using FileWizard.Gui.FolderSelector;
+﻿using FileWizard.Gui.WizardSteps;
 using FileWizard.Gui.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,18 @@ namespace FileWizard.Gui
         {
             MainWindow mainWindow = new MainWindow();
             INavigationManager navigationManager = new NavigationManager(mainWindow);
+            
             var folderSelectorViewModel = new FolderSelectorViewModel(navigationManager);
-            var viewModels = new[] { folderSelectorViewModel };
+            var fileListViewModel = new FileListViewModel();
+            var viewModels = new IViewModel[] 
+            { 
+                folderSelectorViewModel, 
+                fileListViewModel 
+            };
+
             var mainWindowViewModel = new MainWindowViewModel(viewModels, navigationManager);
 
             mainWindow.DataContext = mainWindowViewModel;
-
             mainWindow.Show();
         }
     }

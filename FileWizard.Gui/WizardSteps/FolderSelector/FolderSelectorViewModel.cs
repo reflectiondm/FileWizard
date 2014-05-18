@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FileWizard.Gui.FolderSelector
+namespace FileWizard.Gui.WizardSteps
 {
     public class FolderSelectorViewModel : ViewModelBase
     {

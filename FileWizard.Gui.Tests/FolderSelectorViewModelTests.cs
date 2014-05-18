@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FileWizard.Gui.FolderSelector;
+using FileWizard.Gui.WizardSteps;
 using FileWizard.Gui.Tests.Fakes;
 
 namespace FileWizard.Gui.Tests
