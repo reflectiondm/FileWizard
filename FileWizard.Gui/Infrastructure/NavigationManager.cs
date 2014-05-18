@@ -36,9 +36,9 @@ namespace FileWizard.Gui.Infrastructure
 
         public void ChooseFolder(string path)
         {
-            throw new NotImplementedException();
+            OnFolderChosen(this, new FolderChosenEventArgs(path));
         }
 
-        public event EventHandler<FolderChosenEventArgs> OnFolderChosen;
+        public event EventHandler<FolderChosenEventArgs> OnFolderChosen = delegate { };
     }
 }

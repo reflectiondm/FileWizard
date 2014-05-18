@@ -11,14 +11,39 @@ namespace FileWizard.Gui.Infrastructure
     {
         public IEnumerable<FileData> GetFileData(string folderPath)
         {
-            throw new NotImplementedException();
+            if (!DoesFolderExist(folderPath))
+                throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
+
+            var files = Directory.GetFiles(folderPath);
+            var result = new List<FileData>();
+            foreach (var file in files)
+            {
+                var data = PopulateFileData(file);
+                result.Add(data);
+            }
+
+            return result;
+        }
+
+        private FileData PopulateFileData(string file)
+        {
+            var fileInfo = new FileInfo(file);
+            var fileName = fileInfo.Name;
+            var type = fileInfo.Extension;
+            var size = fileInfo.Length;
+            return new FileData()
+            {
+                Name = fileName,
+                Type = type,
+                Size = size.ToString()
+            };
         }
 
         public bool DoesFolderExist(string folderPath)
         {
             var path = Path.GetDirectoryName(folderPath);
-            
-            return folderPath == Path.GetPathRoot(folderPath) || 
+
+            return folderPath == Path.GetPathRoot(folderPath) ||
                 Directory.Exists(path);
         }
 
