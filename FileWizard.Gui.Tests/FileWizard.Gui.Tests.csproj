@@ -50,9 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseTest.cs" />
     <Compile Include="DelegateCommandTests.cs" />
     <Compile Include="Fakes\FolderSelectorVMMock.cs" />
     <Compile Include="Fakes\NavigationManagerMock.cs" />
+    <Compile Include="FileListViewModelTests.cs" />
     <Compile Include="FolderSelectorViewModelTests.cs" />
     <Compile Include="MainWindowViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

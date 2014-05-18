@@ -6,15 +6,14 @@ using FileWizard.Gui.Tests.Fakes;
 namespace FileWizard.Gui.Tests
 {
     [TestClass]
-    public class FolderSelectorViewModelTests
+    public class FolderSelectorViewModelTests : BaseTest
     {
         FolderSelectorViewModel _sut;
-        NavigationManagerMock _navigationManagerMock;
 
         [TestInitialize]
         public void TestInit()
         {
-            _navigationManagerMock = new NavigationManagerMock();
+            BaseInit();
             _sut = new FolderSelectorViewModel(_navigationManagerMock);
         }
 

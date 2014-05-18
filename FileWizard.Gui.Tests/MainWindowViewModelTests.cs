@@ -5,10 +5,9 @@ using FileWizard.Gui.Tests.Fakes;
 namespace FileWizard.Gui.Tests
 {
     [TestClass]
-    public class MainWindowViewModelTests
+    public class MainWindowViewModelTests : BaseTest
     {
         private FolderSelectorVMMock[] _viewModelMocks;
-        private NavigationManagerMock _navigationManagerMock;
         private MainWindowViewModel _sut;
         private FolderSelectorVMMock _vm1;
         private FolderSelectorVMMock _vm2;
@@ -16,10 +15,10 @@ namespace FileWizard.Gui.Tests
         [TestInitialize]
         public void TestInit()
         {
+            BaseInit();
             _vm1 = new FolderSelectorVMMock();
             _vm2 = new FolderSelectorVMMock();
             _viewModelMocks = new[] {_vm1, _vm2 };
-            _navigationManagerMock = new NavigationManagerMock();
             _sut = new MainWindowViewModel(_viewModelMocks, _navigationManagerMock);
         }
 
