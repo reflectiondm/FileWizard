@@ -23,7 +23,8 @@ namespace FileWizard.Gui
             MainWindow mainWindow = new MainWindow();
             INavigationManager navigationManager = new NavigationManager(mainWindow);
             var folderSelectorViewModel = new FolderSelectorViewModel(navigationManager);
-            var mainWindowViewModel = new MainWindowViewModel(folderSelectorViewModel, navigationManager);
+            var viewModels = new[] { folderSelectorViewModel };
+            var mainWindowViewModel = new MainWindowViewModel(viewModels, navigationManager);
 
             mainWindow.DataContext = mainWindowViewModel;
 

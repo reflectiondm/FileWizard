@@ -12,11 +12,12 @@ namespace FileWizard.Gui.Tests.Fakes
         public void GoToNextView()
         {
             GoNextWasCalled = true;
+            OnToNextStep(this, EventArgs.Empty);
         }
 
         public void GoToPreviousView()
         {
-            throw new NotImplementedException();
+            OnToPreviousStep(this, EventArgs.Empty);
         }
 
         public void CloseWindow()
@@ -24,9 +25,9 @@ namespace FileWizard.Gui.Tests.Fakes
             CloseWindowWasCalled = true;
         }
 
-        public event EventHandler OnToNextStep;
+        public event EventHandler OnToNextStep = delegate { };
 
-        public event EventHandler OnToPreviousStep;
+        public event EventHandler OnToPreviousStep = delegate { };
 
         public bool GoNextWasCalled { get; set; }
 

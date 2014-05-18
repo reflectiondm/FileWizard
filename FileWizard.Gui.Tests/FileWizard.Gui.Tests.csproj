@@ -54,7 +54,7 @@
     <Compile Include="Fakes\FolderSelectorVMMock.cs" />
     <Compile Include="Fakes\NavigationManagerMock.cs" />
     <Compile Include="FolderSelectorViewModelTests.cs" />
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="MainWindowViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
