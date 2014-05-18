@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FileWizard.Gui.WizardSteps;
+using System.Linq;
+using FileWizard.Gui.Infrastructure;
 
 namespace FileWizard.Gui.Tests
 {
@@ -9,6 +11,8 @@ namespace FileWizard.Gui.Tests
     {
         private FileListViewModel _sut;
         private string _folderPath;
+        Func<FileData, FileData, bool> _comparator = (l, r) => l.Name == r.Name;
+
         [TestInitialize]
         public void TestInit()
         {
@@ -26,7 +30,40 @@ namespace FileWizard.Gui.Tests
 
             var result = _sut.FileList;
 
-            AssertSequencesAreEqual(expected, result, (l,r) => l.Name == r.Name);
+            AssertSequencesAreEqual(expected, result, _comparator);
+        }
+
+        [TestMethod]
+        public void WhenSearchTextIsChanged_FileListGetsFiltered()
+        {
+            _navigationManagerMock.ChooseFolder(_folderPath);
+            _sut.SearchText = "1";
+
+            var expected = new[]{_fileRepositoryMock.GetFileData(_folderPath).First()};
+
+            AssertSequencesAreEqual(expected, _sut.FileList, _comparator);
+        }
+
+        [TestMethod]
+        public void WhenSearchTextIsChanged_FileListGetsFiltered_CaseInsensitive()
+        {
+            _navigationManagerMock.ChooseFolder(_folderPath);
+            _sut.SearchText = "FILE1";
+
+            var expected = new[] { _fileRepositoryMock.GetFileData(_folderPath).First() };
+
+            AssertSequencesAreEqual(expected, _sut.FileList, _comparator);
+        }
+
+        [TestMethod]
+        public void WhenSearchTextIsChanged_FileListGetsFiltered_CanSearchByExtension()
+        {
+            _navigationManagerMock.ChooseFolder(_folderPath);
+            _sut.SearchText = "exe";
+
+            var expected = new[] { _fileRepositoryMock.GetFileData(_folderPath).First() };
+
+            AssertSequencesAreEqual(expected, _sut.FileList, _comparator);
         }
     }
 }

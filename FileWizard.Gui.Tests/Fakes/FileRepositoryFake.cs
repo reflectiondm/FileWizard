@@ -14,9 +14,9 @@ namespace FileWizard.Gui.Tests.Fakes
         public IEnumerable<FileData> GetFileData(string path)
         {
             return new[]{
-                new FileData(){Name = "File1"},
-                new FileData(){Name = "File2"},
-                new FileData(){Name = "File3"},
+                new FileData(){Name = "File1", Type = "EXE"},
+                new FileData(){Name = "File2", Type = "zip"},
+                new FileData(){Name = "File3", Type = "txt"},
             };
         }
 

@@ -15,6 +15,8 @@ namespace FileWizard.Gui.WizardSteps
         private readonly INavigationManager _navigationManager;
         private readonly IFileRepository _fileRepository;
         private DelegateCommand _cancelCommand;
+        private IEnumerable<FileData> backingFileData = new FileData[0];
+
         public FileListViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
             _navigationManager = navigationManager;
@@ -31,8 +33,15 @@ namespace FileWizard.Gui.WizardSteps
 
         private void PopulateFileList(string p)
         {
-            FileList.Clear();
-            var fileData = _fileRepository.GetFileData(p);
+            backingFileData = _fileRepository.GetFileData(p);
+
+            AddItemsToList(backingFileData, true);
+        }
+
+        private void AddItemsToList(IEnumerable<FileData> fileData, bool shouldClear = false)
+        {
+            if (shouldClear)
+                FileList.Clear();
 
             foreach (var data in fileData)
             {
@@ -41,6 +50,30 @@ namespace FileWizard.Gui.WizardSteps
         }
 
         public ObservableCollection<FileData> FileList { get; private set; }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                FilterFileList(_searchText);
+                RaiseOnPropertyChanged("SearchText");
+            }
+        }
+
+        private void FilterFileList(string _searchText)
+        {
+            var data = backingFileData.Where(d => Like(d.Name, _searchText) || Like(d.Type, _searchText));
+
+            AddItemsToList(data, true);
+        }
+
+        private bool Like(string left, string right)
+        {
+            return left.ToLower().Contains(right.ToLower());
+        }
 
         public ICommand CancelCommand
         {

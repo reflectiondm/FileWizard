@@ -8,8 +8,14 @@ namespace FileWizard.Gui.Infrastructure
 {
     public class FileData
     {
+        public FileData()
+        {
+            Name = "";
+            Type = "";
+        }
+
         public string Name { get; set; }
         public string Type { get; set; }
-        public string Size { get; set; }
+        public long Size { get; set; }
     }
 }

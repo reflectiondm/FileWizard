@@ -35,7 +35,7 @@ namespace FileWizard.Gui.Infrastructure
             {
                 Name = fileName,
                 Type = type,
-                Size = size.ToString()
+                Size = size
             };
         }
 
