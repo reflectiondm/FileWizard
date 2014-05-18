@@ -10,10 +10,12 @@ namespace FileWizard.Gui.Tests
     public abstract class BaseTest
     {
         protected NavigationManagerMock _navigationManagerMock;
+        protected FileRepositoryMock _fileRepositoryMock;
 
         protected void BaseInit()
         {
             _navigationManagerMock = new NavigationManagerMock();
+            _fileRepositoryMock = new FileRepositoryMock();
         }
     }
 }

@@ -8,12 +8,12 @@ namespace FileWizard.Gui.Infrastructure
 {
     public interface IFileRepository
     {
-        IEnumerable<FileData> GetFileData(string path);
+        IEnumerable<FileData> GetFileData(string folderPath);
 
-        bool DoesDirectoryExist(string path);
+        bool DoesFolderExist(string folderPath);
 
-        bool HaveInnerDirectories(string path);
+        bool HaveInnerFolders(string folderPath);
 
-        IEnumerable<string> GetInnerDirectories(string path);
+        IEnumerable<string> GetInnerFolders(string folderPath);
     }
 }

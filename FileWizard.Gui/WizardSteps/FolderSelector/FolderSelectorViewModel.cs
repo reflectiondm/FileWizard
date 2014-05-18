@@ -14,11 +14,13 @@ namespace FileWizard.Gui.WizardSteps
         private string _folderPath;
         private DelegateCommand _goToNextStepCommand;
         private DelegateCommand _cancelCommand;
-        private INavigationManager _navigationManager;
+        private readonly INavigationManager _navigationManager;
+        private readonly IFileRepository _fileRepository;
 
-        public FolderSelectorViewModel(INavigationManager navigationManager)
+        public FolderSelectorViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
             _navigationManager = navigationManager;
+            _fileRepository = fileRepository;
             _goToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
             _cancelCommand = new DelegateCommand(d => Cancel());
         }
@@ -53,10 +55,11 @@ namespace FileWizard.Gui.WizardSteps
 
         private bool CanGoToNextStep()
         {
-            var result = string.IsNullOrEmpty(FolderPath) ?
-                false :
-                true;
-            return result;
+            if (string.IsNullOrEmpty(FolderPath) ||
+                !_fileRepository.DoesFolderExist(FolderPath))
+                return false;
+
+            return true;
         }
     }
 }

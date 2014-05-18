@@ -14,7 +14,7 @@ namespace FileWizard.Gui.Tests
         public void TestInit()
         {
             BaseInit();
-            _sut = new FolderSelectorViewModel(_navigationManagerMock);
+            _sut = new FolderSelectorViewModel(_navigationManagerMock, _fileRepositoryMock);
         }
 
 
@@ -35,13 +35,24 @@ namespace FileWizard.Gui.Tests
         }
 
         [TestMethod]
-        public void WhenSelectedFolderIsNotEmpty_GoToNextStepIsEnabled()
+        public void WhenSelectedFolderIsNotEmpty_AndFolderExists_GoToNextStepIsEnabled()
+        {
+            _sut.FolderPath = "SomeFolderPath";
+            _fileRepositoryMock.SetupDoesFolderExist = true;
+
+            var result = _sut.GoToNextStepCommand.CanExecute(null);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void WhenSelectedFolderIsNotEmpty_AndFolderDoesNotExist_GoToNextStepIsDisabled()
         {
             _sut.FolderPath = "SomeFolderPath";
 
             var result = _sut.GoToNextStepCommand.CanExecute(null);
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
