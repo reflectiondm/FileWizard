@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using FileWizard.Gui.Utils;
 
 namespace FileWizard.Gui.WizardSteps
 {
@@ -12,12 +14,13 @@ namespace FileWizard.Gui.WizardSteps
     {
         private readonly INavigationManager _navigationManager;
         private readonly IFileRepository _fileRepository;
-
+        private DelegateCommand _cancelCommand;
         public FileListViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
             _navigationManager = navigationManager;
             _navigationManager.OnFolderChosen += _navigationManager_OnFolderChosen;
             _fileRepository = fileRepository;
+            _cancelCommand = new DelegateCommand(d => _navigationManager.GoToPreviousView());
             FileList = new ObservableCollection<FileData>();
         }
 
@@ -38,5 +41,13 @@ namespace FileWizard.Gui.WizardSteps
         }
 
         public ObservableCollection<FileData> FileList { get; private set; }
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand;
+            }
+        }
     }
 }

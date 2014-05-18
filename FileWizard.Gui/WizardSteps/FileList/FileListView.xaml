@@ -6,13 +6,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
-                  SelectionMode="Extended" SelectionUnit="FullRow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Content="Recourse Subdirectories"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"/>
+            <TextBox Grid.Column="1" Text="Search"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right"
+                     Width="100"/>
+        </Grid>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
+                  SelectionMode="Extended" SelectionUnit="FullRow"
+                  CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="SizeToCells" MinWidth="40"/>
                 <DataGridTextColumn Header="Size" Binding="{Binding Size}" Width="SizeToCells" MinWidth="35"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource NavigationButton}"
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"/>
+            <Button Style="{StaticResource NavigationButton}"
+                    Content="Open"
+                    Command="{Binding OpenCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

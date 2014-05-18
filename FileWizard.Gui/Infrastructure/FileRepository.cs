@@ -28,7 +28,7 @@ namespace FileWizard.Gui.Infrastructure
         private FileData PopulateFileData(string file)
         {
             var fileInfo = new FileInfo(file);
-            var fileName = fileInfo.Name;
+            var fileName = Path.GetFileNameWithoutExtension(file);
             var type = fileInfo.Extension;
             var size = fileInfo.Length;
             return new FileData()
