@@ -58,6 +58,7 @@
       <DependentUpon>FolderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\FileData.cs" />
+    <Compile Include="Infrastructure\FileRepository.cs" />
     <Compile Include="Infrastructure\IFileRepository.cs" />
     <Compile Include="WizardSteps\FileList\FileListView.xaml.cs">
       <DependentUpon>FileListView.xaml</DependentUpon>
