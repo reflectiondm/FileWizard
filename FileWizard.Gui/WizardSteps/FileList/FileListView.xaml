@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local ="clr-namespace:FileWizard.Gui.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -19,10 +20,7 @@
             <CheckBox Content="Recourse Subdirectories"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"/>
-            <TextBox Grid.Column="1" Text="Search"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Right"
-                     Width="100"/>
+            <local:SearchTextBox Grid.Column="1"/>
         </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
                   SelectionMode="Extended" SelectionUnit="FullRow"

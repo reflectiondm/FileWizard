@@ -57,6 +57,7 @@
     <Compile Include="Controls\FolderControl.xaml.cs">
       <DependentUpon>FolderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SearchTextBox.cs" />
     <Compile Include="Infrastructure\FileData.cs" />
     <Compile Include="Infrastructure\FileRepository.cs" />
     <Compile Include="Infrastructure\IFileRepository.cs" />
@@ -133,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
