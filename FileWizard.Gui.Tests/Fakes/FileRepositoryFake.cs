@@ -13,7 +13,11 @@ namespace FileWizard.Gui.Tests.Fakes
 
         public IEnumerable<FileData> GetFileData(string path)
         {
-            throw new NotImplementedException();
+            return new[]{
+                new FileData(){Name = "File1"},
+                new FileData(){Name = "File2"},
+                new FileData(){Name = "File3"},
+            };
         }
 
         public bool DoesFolderExist(string path)
