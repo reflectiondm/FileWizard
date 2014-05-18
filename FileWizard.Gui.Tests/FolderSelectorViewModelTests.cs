@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FileWizard.Gui.FolderSelector;
+using FileWizard.Gui.Tests.Fakes;
 
 namespace FileWizard.Gui.Tests
 {
@@ -8,10 +9,13 @@ namespace FileWizard.Gui.Tests
     public class FolderSelectorViewModelTests
     {
         FolderSelectorViewModel _sut;
+        NavigationManagerMock _navigationManagerMock;
+
         [TestInitialize]
         public void TestInit()
         {
-            _sut = new FolderSelectorViewModel();
+            _navigationManagerMock = new NavigationManagerMock();
+            _sut = new FolderSelectorViewModel(_navigationManagerMock);
         }
 
 
@@ -58,6 +62,22 @@ namespace FileWizard.Gui.Tests
             _sut.FolderPath = "SomeFolderPath";
 
             Assert.IsTrue(fired);
+        }
+
+        [TestMethod]
+        public void WhenGoToNextInvoked_NavigateToFileList()
+        {
+            _sut.GoToNextStepCommand.Execute(null);
+
+            Assert.IsTrue(_navigationManagerMock.GoNextWasCalled);
+        }
+
+        [TestMethod]
+        public void WhenCancelCommandInvoked_CloseWindow()
+        {
+            _sut.CancelCommand.Execute(null);
+
+            Assert.IsTrue(_navigationManagerMock.CloseWindowWasCalled);
         }
     }
 }

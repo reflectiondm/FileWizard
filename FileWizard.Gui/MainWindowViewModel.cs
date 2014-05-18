@@ -1,4 +1,5 @@
 ﻿using FileWizard.Gui.FolderSelector;
+using FileWizard.Gui.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,48 @@ namespace FileWizard.Gui
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel(IViewModel folderSelectorVM)
+        public MainWindowViewModel(IEnumerable<IViewModel> viewModels, INavigationManager navigationManager)
         {
-            ActiveViewModel = folderSelectorVM;
+            if (viewModels == null)
+                throw new ArgumentNullException("viewModels");
+            _steps = viewModels.ToArray();
+            if (_steps.Length == 0)
+                throw new ArgumentException("viewModels must have at least one element");
+            ActiveViewModel = _steps[0];
+            _currentIndex = 0;
+            _navigationManager = navigationManager;
+            _navigationManager.OnToNextStep += _navigationManager_OnToNextStep;
+            _navigationManager.OnToPreviousStep += _navigationManager_OnToPreviousStep;
+            
         }
 
-        public MainWindowViewModel()
-            : this(new FolderSelectorViewModel())
+        void _navigationManager_OnToPreviousStep(object sender, EventArgs e)
         {
-
+            var newIndex = _currentIndex - 1;
+            GoToStepAndUpdateIndex(newIndex);
         }
+
+        void _navigationManager_OnToNextStep(object sender, EventArgs e)
+        {
+            var newIndex = _currentIndex + 1;
+            GoToStepAndUpdateIndex(newIndex);
+        }
+
+        private void GoToStepAndUpdateIndex(int newIndex)
+        {
+            if (newIndex < _steps.Length && newIndex >= 0)
+            {
+                _currentIndex = newIndex;
+                ActiveViewModel = _steps[_currentIndex];
+            }
+        }
+
+
 
         private IViewModel _activeViewModel;
+        private INavigationManager _navigationManager;
+        private IViewModel[] _steps;
+        private int _currentIndex;
         public IViewModel ActiveViewModel
         {
             get

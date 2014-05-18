@@ -1,4 +1,5 @@
-﻿using FileWizard.Gui.Utils;
+﻿using FileWizard.Gui.Infrastructure;
+using FileWizard.Gui.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,24 @@ namespace FileWizard.Gui.FolderSelector
 {
     public class FolderSelectorViewModel : ViewModelBase
     {
-        public FolderSelectorViewModel()
-        {
-            _goToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
-            _cancelCommand = new DelegateCommand(d => {});
-        }
-
         private string _folderPath;
         private DelegateCommand _goToNextStepCommand;
         private DelegateCommand _cancelCommand;
+        private INavigationManager _navigationManager;
+
+        public FolderSelectorViewModel(INavigationManager navigationManager)
+        {
+            _navigationManager = navigationManager;
+            _goToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
+            _cancelCommand = new DelegateCommand(d => Cancel());
+        }
+
+        private void Cancel()
+        {
+            _navigationManager.CloseWindow();
+        }
+
+       
         public string FolderPath
         {
             get
@@ -37,7 +47,9 @@ namespace FileWizard.Gui.FolderSelector
         public ICommand CancelCommand { get { return _cancelCommand; } }
 
         private void GoToNextStep()
-        { }
+        {
+            _navigationManager.GoToNextView();
+        }
 
         private bool CanGoToNextStep()
         {
