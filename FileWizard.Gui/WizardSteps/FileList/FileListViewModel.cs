@@ -1,12 +1,10 @@
 ﻿using FileWizard.Gui.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using FileWizard.Gui.Utils;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FileWizard.Gui.WizardSteps
 {
@@ -15,7 +13,7 @@ namespace FileWizard.Gui.WizardSteps
         private readonly INavigationManager _navigationManager;
         private readonly IFileRepository _fileRepository;
         private DelegateCommand _cancelCommand;
-        private IEnumerable<FileData> backingFileData = new FileData[0];
+        private IEnumerable<FileData> backingFileData = Enumerable.Empty<FileData>();
 
         public FileListViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
@@ -28,15 +26,30 @@ namespace FileWizard.Gui.WizardSteps
 
         void _navigationManager_OnFolderChosen(object sender, FolderChosenEventArgs e)
         {
+            backingFileData = Enumerable.Empty<FileData>();
+            FileList.Clear();
             PopulateFileList(e.FolderPath);
         }
 
-        private void PopulateFileList(string p)
+        async Task PopulateFileList(string p)
         {
-            backingFileData = _fileRepository.GetFileData(p);
+            IsBusy = true;
 
-            AddItemsToList(backingFileData, true);
+            backingFileData = await _fileRepository.GetFileDataAsync(p);
+
+            AddItemsToList(backingFileData);
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                FilterFileList(SearchText);
+            }
+            IsBusy = false;
         }
+
+        private async Task<IEnumerable<FileData>> GetFileData(string path)
+        {
+            return _fileRepository.GetFileData(path);
+        }
+
 
         private void AddItemsToList(IEnumerable<FileData> fileData, bool shouldClear = false)
         {
@@ -80,6 +93,17 @@ namespace FileWizard.Gui.WizardSteps
             get
             {
                 return _cancelCommand;
+            }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = value;
+                RaiseOnPropertyChanged("IsBusy");
             }
         }
     }

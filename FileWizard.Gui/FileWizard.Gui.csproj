@@ -61,6 +61,7 @@
     <Compile Include="Infrastructure\FileData.cs" />
     <Compile Include="Infrastructure\FileRepository.cs" />
     <Compile Include="Infrastructure\IFileRepository.cs" />
+    <Compile Include="Utils\BooleanToCollapsedVisibilityConverter.cs" />
     <Compile Include="WizardSteps\FileList\FileListView.xaml.cs">
       <DependentUpon>FileListView.xaml</DependentUpon>
     </Compile>
@@ -75,6 +76,10 @@
     <Compile Include="Utils\DelegateCommand.cs" />
     <Compile Include="Utils\ViewModelBase.cs" />
     <Page Include="Controls\FolderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\SearchTextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

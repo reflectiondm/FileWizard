@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local ="clr-namespace:FileWizard.Gui.Controls"
+             xmlns:u ="clr-namespace:FileWizard.Gui.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <u:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -23,7 +28,11 @@
             <local:SearchTextBox Grid.Column="1"
                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
+
+        <ProgressBar Grid.Row="1" IsIndeterminate="{Binding IsBusy}" Height="10" VerticalAlignment="Top"
+                     Visibility="{Binding IsBusy, Converter={StaticResource boolToVisibilityConverter}}"/>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
                   SelectionMode="Extended" SelectionUnit="FullRow"
                   CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
@@ -32,7 +41,8 @@
                 <DataGridTextColumn Header="Size" Binding="{Binding Size}" Width="SizeToCells" MinWidth="35" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Style="{StaticResource NavigationButton}"
                     Content="Cancel"
                     Command="{Binding CancelCommand}"/>

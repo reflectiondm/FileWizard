@@ -34,5 +34,12 @@ namespace FileWizard.Gui.Tests.Fakes
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<IEnumerable<FileData>> GetFileDataAsync(string folderPath)
+        {
+            return Task.Factory.StartNew<IEnumerable<FileData>>(
+                () => GetFileData(folderPath));
+        }
     }
 }

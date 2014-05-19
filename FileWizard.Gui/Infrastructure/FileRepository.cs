@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FileWizard.Gui.Infrastructure
@@ -11,6 +12,7 @@ namespace FileWizard.Gui.Infrastructure
     {
         public IEnumerable<FileData> GetFileData(string folderPath)
         {
+            Thread.Sleep(3000);
             if (!DoesFolderExist(folderPath))
                 throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
 
@@ -23,6 +25,11 @@ namespace FileWizard.Gui.Infrastructure
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<FileData>> GetFileDataAsync(string folderPath)
+        {
+            return await Task.Factory.StartNew<IEnumerable<FileData>>(() => GetFileData(folderPath));
         }
 
         private FileData PopulateFileData(string file)

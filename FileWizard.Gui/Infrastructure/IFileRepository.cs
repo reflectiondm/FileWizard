@@ -9,6 +9,7 @@ namespace FileWizard.Gui.Infrastructure
     public interface IFileRepository
     {
         IEnumerable<FileData> GetFileData(string folderPath);
+        Task<IEnumerable<FileData>> GetFileDataAsync(string folderPath);
 
         bool DoesFolderExist(string folderPath);
 
