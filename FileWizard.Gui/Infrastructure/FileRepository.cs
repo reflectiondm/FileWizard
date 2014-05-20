@@ -12,7 +12,7 @@ namespace FileWizard.Gui.Infrastructure
     {
         public IEnumerable<FileData> GetFileData(string folderPath)
         {
-            Thread.Sleep(3000);
+            //Thread.Sleep(1000);
             if (!DoesFolderExist(folderPath))
                 throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
 
@@ -56,12 +56,12 @@ namespace FileWizard.Gui.Infrastructure
 
         public bool HaveInnerFolders(string folderPath)
         {
-            throw new NotImplementedException();
+            return GetInnerFolders(folderPath).Any();
         }
 
         public IEnumerable<string> GetInnerFolders(string folderPath)
         {
-            throw new NotImplementedException();
+            return Directory.GetDirectories(folderPath);
         }
     }
 }

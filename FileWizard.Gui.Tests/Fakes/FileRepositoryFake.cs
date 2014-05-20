@@ -13,6 +13,9 @@ namespace FileWizard.Gui.Tests.Fakes
 
         public IEnumerable<FileData> GetFileData(string path)
         {
+            if (path == "inner")
+                return new[] { new FileData() { Name = "File4", Type = "zip" }, };
+
             return new[]{
                 new FileData(){Name = "File1", Type = "EXE"},
                 new FileData(){Name = "File2", Type = "zip"},
@@ -27,12 +30,18 @@ namespace FileWizard.Gui.Tests.Fakes
 
         public bool HaveInnerFolders(string path)
         {
-            throw new NotImplementedException();
+            if (path == "inner")
+                return false;
+
+            return true;
         }
 
         public IEnumerable<string> GetInnerFolders(string path)
         {
-            throw new NotImplementedException();
+            if (path == "inner")
+                return Enumerable.Empty<string>();
+
+            return new[] { "inner" };
         }
 
 

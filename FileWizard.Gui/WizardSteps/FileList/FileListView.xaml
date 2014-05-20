@@ -23,6 +23,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <CheckBox Content="Recourse Subdirectories"
+                      IsChecked="{Binding IsRecoursive, UpdateSourceTrigger=PropertyChanged}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"/>
             <local:SearchTextBox Grid.Column="1"

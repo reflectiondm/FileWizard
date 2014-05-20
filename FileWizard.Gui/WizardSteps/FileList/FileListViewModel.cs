@@ -1,8 +1,10 @@
 ﻿using FileWizard.Gui.Infrastructure;
 using FileWizard.Gui.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -13,7 +15,7 @@ namespace FileWizard.Gui.WizardSteps
         private readonly INavigationManager _navigationManager;
         private readonly IFileRepository _fileRepository;
         private DelegateCommand _cancelCommand;
-        private IEnumerable<FileData> backingFileData = Enumerable.Empty<FileData>();
+        private List<FileData> backingFileData = new List<FileData>();
 
         public FileListViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
@@ -26,23 +28,57 @@ namespace FileWizard.Gui.WizardSteps
 
         void _navigationManager_OnFolderChosen(object sender, FolderChosenEventArgs e)
         {
-            backingFileData = Enumerable.Empty<FileData>();
-            FileList.Clear();
-            PopulateFileList(e.FolderPath);
+            ClearData();
+            _currentPath = e.FolderPath;
+            PopulateFileList(_currentPath);
         }
 
-        async Task PopulateFileList(string p)
+        private void ClearData()
         {
-            IsBusy = true;
+            if (_cancellation != null && _cancellation.Token.CanBeCanceled)
+                _cancellation.Cancel();
 
-            backingFileData = await _fileRepository.GetFileDataAsync(p);
+            backingFileData = new List<FileData>();
+            FileList.Clear();
+        }
 
-            AddItemsToList(backingFileData);
+        async Task PopulateFileList(string path)
+        {
+            try
+            {
+                IsBusy = true;
+                _cancellation = new CancellationTokenSource();
+                await PopulateFilesFromFolder(path, _cancellation.Token);
+                IsBusy = false;
+            }
+            catch (OperationCanceledException ex)
+            {
+                IsBusy = false;   
+                //throw;
+            }
+        }
+
+        async Task PopulateFilesFromFolder(string folderPath, CancellationToken ct)
+        {
+            var fileData = await _fileRepository.GetFileDataAsync(folderPath);
+            
+            ct.ThrowIfCancellationRequested();
+
+            backingFileData.AddRange(fileData);
+
+            AddItemsToList(fileData);
             if (!string.IsNullOrEmpty(SearchText))
             {
                 FilterFileList(SearchText);
             }
-            IsBusy = false;
+            if(IsRecoursive && _fileRepository.HaveInnerFolders(folderPath))
+            {
+                var innerFolders = _fileRepository.GetInnerFolders(folderPath);
+                foreach (var folder in innerFolders)
+                {
+                    await PopulateFilesFromFolder(folder, ct);
+                }
+            }
         }
 
         private async Task<IEnumerable<FileData>> GetFileData(string path)
@@ -104,6 +140,21 @@ namespace FileWizard.Gui.WizardSteps
             {
                 _isBusy = value;
                 RaiseOnPropertyChanged("IsBusy");
+            }
+        }
+
+        private bool _isRecoursive;
+        private string _currentPath;
+        private CancellationTokenSource _cancellation;
+        public bool IsRecoursive
+        {
+            get { return _isRecoursive; }
+            set
+            {
+                _isRecoursive = value;
+                RaiseOnPropertyChanged("IsRecoursive");
+                ClearData();
+                PopulateFileList(_currentPath);
             }
         }
     }

@@ -65,5 +65,16 @@ namespace FileWizard.Gui.Tests
 
             AssertSequencesAreEqual(expected, _sut.FileList, _comparator);
         }
+
+        [TestMethod]
+        public void WhenIsRecoursiveSearchIsChangedToTrue_ConentsOfInnerFoldersAreAdded()
+        {
+            _navigationManagerMock.ChooseFolder(_folderPath);
+            _sut.IsRecoursive = true;
+
+            var expected = _fileRepositoryMock.GetFileData(_folderPath).Concat(_fileRepositoryMock.GetFileData("inner"));
+
+            AssertSequencesAreEqual(expected, _sut.FileList, _comparator);
+        }
     }
 }
