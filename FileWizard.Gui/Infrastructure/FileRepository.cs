@@ -42,7 +42,8 @@ namespace FileWizard.Gui.Infrastructure
             {
                 Name = fileName,
                 Type = type,
-                Size = size
+                Size = size,
+                FullPath = file
             };
         }
 

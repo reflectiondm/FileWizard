@@ -12,11 +12,13 @@ namespace FileWizard.Gui.Tests
     {
         protected NavigationManagerMock _navigationManagerMock;
         protected FileRepositoryMock _fileRepositoryMock;
+        protected FakeUserInteractionManager _userInteractionManager;
 
         protected void BaseInit()
         {
             _navigationManagerMock = new NavigationManagerMock();
             _fileRepositoryMock = new FileRepositoryMock();
+            _userInteractionManager = new FakeUserInteractionManager();
         }
 
 

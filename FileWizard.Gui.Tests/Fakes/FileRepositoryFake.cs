@@ -14,12 +14,12 @@ namespace FileWizard.Gui.Tests.Fakes
         public IEnumerable<FileData> GetFileData(string path)
         {
             if (path == "inner")
-                return new[] { new FileData() { Name = "File4", Type = "zip" }, };
+                return new[] { new FakeFileData() { Name = "File4", Type = "zip" }, };
 
             return new[]{
-                new FileData(){Name = "File1", Type = "EXE"},
-                new FileData(){Name = "File2", Type = "zip"},
-                new FileData(){Name = "File3", Type = "txt"},
+                new FakeFileData(){Name = "File1", Type = "EXE"},
+                new FakeFileData(){Name = "File2", Type = "zip"},
+                new FakeFileData(){Name = "File3", Type = "txt"},
             };
         }
 

@@ -61,6 +61,8 @@
     <Compile Include="Infrastructure\FileData.cs" />
     <Compile Include="Infrastructure\FileRepository.cs" />
     <Compile Include="Infrastructure\IFileRepository.cs" />
+    <Compile Include="Infrastructure\IUserInteractionManager.cs" />
+    <Compile Include="Infrastructure\UserInteractionManager.cs" />
     <Compile Include="Utils\BooleanToCollapsedVisibilityConverter.cs" />
     <Compile Include="WizardSteps\FileList\FileListView.xaml.cs">
       <DependentUpon>FileListView.xaml</DependentUpon>

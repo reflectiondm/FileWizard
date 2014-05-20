@@ -33,9 +33,10 @@
         <ProgressBar Grid.Row="1" IsIndeterminate="{Binding IsBusy}" Height="10" VerticalAlignment="Top"
                      Visibility="{Binding IsBusy, Converter={StaticResource boolToVisibilityConverter}}"/>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
+        <DataGrid x:Name="dataGrid" Grid.Row="2" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
                   SelectionMode="Extended" SelectionUnit="FullRow"
-                  CanUserAddRows="False" CanUserDeleteRows="False">
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  SelectionChanged="DataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="SizeToCells" MinWidth="40" IsReadOnly="True"/>
@@ -49,7 +50,7 @@
                     Command="{Binding CancelCommand}"/>
             <Button Style="{StaticResource NavigationButton}"
                     Content="Open"
-                    Command="{Binding OpenCommand}"/>
+                    Command="{Binding OpenFilesCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
