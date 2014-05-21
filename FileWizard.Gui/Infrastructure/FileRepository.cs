@@ -36,6 +36,7 @@ namespace FileWizard.Gui.Infrastructure
         {
             var fileInfo = new FileInfo(file);
             var fileName = Path.GetFileNameWithoutExtension(file);
+            var folder = Path.GetDirectoryName(file);
             var type = fileInfo.Extension;
             var size = fileInfo.Length;
             return new FileData()
@@ -43,7 +44,8 @@ namespace FileWizard.Gui.Infrastructure
                 Name = fileName,
                 Type = type,
                 Size = size,
-                FullPath = file
+                FullPath = file,
+                Folder = folder
             };
         }
 

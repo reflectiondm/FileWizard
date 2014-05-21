@@ -28,9 +28,7 @@ namespace FileWizard.Gui.WizardSteps
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var viewModel = DataContext as FileListViewModel; //this could be replaced to interface cast in the future.
-            if (viewModel == null)
-                throw new InvalidOperationException("This view is supposed to work with FileListViewModel only");
+            var viewModel = GetViewModel();
            
             var selectedFiles = new List<FileData>();
             foreach (FileData item in dataGrid.SelectedItems)
@@ -39,6 +37,27 @@ namespace FileWizard.Gui.WizardSteps
             }
 
             viewModel.SelectedFiles = selectedFiles;
+        }
+
+        private void dataGrid_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != MouseButton.Right)
+                return;
+
+            var viewModel = GetViewModel();
+
+            var row = sender as DataGridRow;
+
+            viewModel.SelectedItem = row.Item as FileData;
+        }
+
+        FileListViewModel GetViewModel()
+        {
+            var viewModel = DataContext as FileListViewModel;
+            if (viewModel == null)
+                throw new InvalidOperationException("This view is supposed to work with FileListViewModel only");
+
+            return viewModel;
         }
     }
 }

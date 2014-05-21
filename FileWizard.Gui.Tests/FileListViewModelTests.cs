@@ -124,5 +124,27 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(_userInteractionManager.UserConfirmationAsked);
         }
+
+        [TestMethod]
+        public void WhenFileSelected_AndOpenFolderCommandInvoked_FileDataOpensFolder()
+        {
+            var fileDataMock = new FakeFileData();
+            _sut.SelectedItem = fileDataMock;
+
+            _sut.ShowInFolderCommand.Execute(null);
+
+            Assert.IsTrue(fileDataMock.OpenFolderWasCalled);
+        }
+
+        [TestMethod]
+        public void WhenFileSelected_AndCopyPathCommandInvoked_FileDataOpensFolder()
+        {
+            var fileDataMock = new FakeFileData();
+            _sut.SelectedItem = fileDataMock;
+
+            _sut.CopyPathCommand.Execute(null);
+
+            Assert.IsTrue(fileDataMock.CopyPathWasCalled);
+        }
     }
 }

@@ -37,6 +37,24 @@
                   SelectionMode="Extended" SelectionUnit="FullRow"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="IsTabStop" Value="False"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="MouseUp" Handler="dataGrid_MouseUp"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding ShowInFolderCommand}" Header="Show in folder"/>
+                    <MenuItem Command="{Binding CopyPathCommand}" Header="Copy path"/>
+                    <MenuItem Command="{Binding ShowDetailsCommand}" Header="Details"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="SizeToCells" MinWidth="40" IsReadOnly="True"/>
