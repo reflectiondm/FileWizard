@@ -17,5 +17,14 @@ namespace FileWizard.Gui.Tests.Fakes
 
             return false;
         }
+
+        public bool ShowModalDialogWasCalled { get; set; }
+
+
+        public string ShowModal_ExpectedTitle { get; set; }
+        public void ShowModalDialog(IViewModel dialogViewModel, string title)
+        {
+            ShowModalDialogWasCalled = title == ShowModal_ExpectedTitle;
+        }
     }
 }

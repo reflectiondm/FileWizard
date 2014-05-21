@@ -146,5 +146,16 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(fileDataMock.CopyPathWasCalled);
         }
+
+        [TestMethod]
+        public void ShowDetailsInvoked_UserInteractionManager_ShowModalDialogInvoked()
+        {
+            var fileDataMock = new FakeFileData();
+            _sut.SelectedItem = fileDataMock;
+            _userInteractionManager.ShowModal_ExpectedTitle = "File details";
+            _sut.ShowDetailsCommand.Execute(null);
+
+            Assert.IsTrue(_userInteractionManager.ShowModalDialogWasCalled);
+        }
     }
 }

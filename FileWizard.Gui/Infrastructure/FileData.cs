@@ -10,6 +10,7 @@ namespace FileWizard.Gui.Infrastructure
 {
     public class FileData
     {
+        public DateTime CreationTime { get; set; }
         public FileData()
         {
             Name = "";
@@ -37,5 +38,7 @@ namespace FileWizard.Gui.Infrastructure
         {
             Clipboard.SetText(FullPath);
         }
+
+        public DateTime UpdateTime { get; set; }
     }
 }

@@ -19,8 +19,10 @@ namespace FileWizard.Gui.WizardSteps
         private DelegateCommand _openFilesCommand;
         private DelegateCommand _showInFolderCommand;
         private DelegateCommand _copyToClipboadCommand;
+        private DelegateCommand _showDetailsCommand;
         private List<FileData> _backingFileData = new List<FileData>();
         private IList<FileData> _selectedFiles;
+
         public FileListViewModel(INavigationManager navigationManager, IFileRepository fileRepository, IUserInteractionManager userInteractionManager)
         {
             _navigationManager = navigationManager;
@@ -29,9 +31,22 @@ namespace FileWizard.Gui.WizardSteps
             _userInteractionManager = userInteractionManager;
             _cancelCommand = new DelegateCommand(d => _navigationManager.GoToPreviousView());
             _openFilesCommand = new DelegateCommand(d => OpenSelectedFiles(), d => CanOpenSelectedFiles());
+            
+            //Should any commands be added to context menu, it should be moved to separate menu view model.
             _showInFolderCommand = new DelegateCommand(d => ShowInFolder());
             _copyToClipboadCommand = new DelegateCommand(d => CopyToClipboard());
+            _showDetailsCommand = new DelegateCommand(d => ShowDetails());
             FileList = new ObservableCollection<FileData>();
+        }
+
+        private void ShowDetails()
+        {
+            var fileData = SelectedItem;
+            if (fileData == null)
+                return;
+
+            var detailsViewModel = new DetailsViewModel(SelectedItem);
+            _userInteractionManager.ShowModalDialog(detailsViewModel, "File details");
         }
 
         private void CopyToClipboard()
@@ -211,6 +226,9 @@ namespace FileWizard.Gui.WizardSteps
         public ICommand CopyPathCommand
         { get { return _copyToClipboadCommand; } }
 
+        public ICommand ShowDetailsCommand
+        { get { return _showDetailsCommand; } }
+
         private bool _isBusy;
         public bool IsBusy
         {
@@ -225,6 +243,7 @@ namespace FileWizard.Gui.WizardSteps
         private bool _isRecoursive;
         private string _currentPath;
         private CancellationTokenSource _cancellation;
+        
         public bool IsRecoursive
         {
             get { return _isRecoursive; }

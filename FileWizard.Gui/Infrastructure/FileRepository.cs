@@ -12,7 +12,6 @@ namespace FileWizard.Gui.Infrastructure
     {
         public IEnumerable<FileData> GetFileData(string folderPath)
         {
-            //Thread.Sleep(1000);
             if (!DoesFolderExist(folderPath))
                 throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
 
@@ -36,16 +35,25 @@ namespace FileWizard.Gui.Infrastructure
         {
             var fileInfo = new FileInfo(file);
             var fileName = Path.GetFileNameWithoutExtension(file);
-            var folder = Path.GetDirectoryName(file);
+            var folder = fileInfo.DirectoryName;
             var type = fileInfo.Extension;
             var size = fileInfo.Length;
+            var creationTime = fileInfo.CreationTime;
+            var updateTime = fileInfo.LastWriteTime;
+
+            //var sysIcon = System.Drawing.Icon.ExtractAssociatedIcon(file);
+            //var wpfIcon = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(sysIcon.Handle,
+            //    System.Windows.Int32Rect.Empty,
+            //    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
             return new FileData()
             {
                 Name = fileName,
                 Type = type,
                 Size = size,
                 FullPath = file,
-                Folder = folder
+                Folder = folder,
+                CreationTime= creationTime,
+                UpdateTime = updateTime,
             };
         }
 
