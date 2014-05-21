@@ -32,5 +32,17 @@ namespace FileWizard.Gui.Tests.Fakes
         public bool GoNextWasCalled { get; set; }
 
         public bool CloseWindowWasCalled { get; set; }
+
+
+
+        public void ChooseFolder(string path)
+        {
+            ChosenFolder = path;
+            OnFolderChosen(this, new FolderChosenEventArgs(path));
+        }
+
+        public event EventHandler<FolderChosenEventArgs> OnFolderChosen = delegate { };
+
+        public string ChosenFolder { get; set; }
     }
 }

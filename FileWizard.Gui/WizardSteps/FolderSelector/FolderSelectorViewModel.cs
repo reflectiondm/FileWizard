@@ -7,18 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FileWizard.Gui.FolderSelector
+namespace FileWizard.Gui.WizardSteps
 {
     public class FolderSelectorViewModel : ViewModelBase
     {
         private string _folderPath;
         private DelegateCommand _goToNextStepCommand;
         private DelegateCommand _cancelCommand;
-        private INavigationManager _navigationManager;
+        private readonly INavigationManager _navigationManager;
+        private readonly IFileRepository _fileRepository;
 
-        public FolderSelectorViewModel(INavigationManager navigationManager)
+        public FolderSelectorViewModel(INavigationManager navigationManager, IFileRepository fileRepository)
         {
             _navigationManager = navigationManager;
+            _fileRepository = fileRepository;
             _goToNextStepCommand = new DelegateCommand(d => GoToNextStep(), d => CanGoToNextStep());
             _cancelCommand = new DelegateCommand(d => Cancel());
         }
@@ -48,15 +50,17 @@ namespace FileWizard.Gui.FolderSelector
 
         private void GoToNextStep()
         {
+            _navigationManager.ChooseFolder(FolderPath);
             _navigationManager.GoToNextView();
         }
 
         private bool CanGoToNextStep()
         {
-            var result = string.IsNullOrEmpty(FolderPath) ?
-                false :
-                true;
-            return result;
+            if (string.IsNullOrEmpty(FolderPath) ||
+                !_fileRepository.DoesFolderExist(FolderPath))
+                return false;
+
+            return true;
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Forms = System.Windows.Forms;
 
-namespace FileWizard.Gui.FolderSelector
+namespace FileWizard.Gui.WizardSteps
 {
     /// <summary>
     /// Interaction logic for FolderSelectorView.xaml

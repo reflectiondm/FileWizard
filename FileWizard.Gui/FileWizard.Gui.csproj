@@ -57,10 +57,21 @@
     <Compile Include="Controls\FolderControl.xaml.cs">
       <DependentUpon>FolderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FolderSelector\FolderSelectorView.xaml.cs">
+    <Compile Include="Controls\SearchTextBox.cs" />
+    <Compile Include="Infrastructure\FileData.cs" />
+    <Compile Include="Infrastructure\FileRepository.cs" />
+    <Compile Include="Infrastructure\IFileRepository.cs" />
+    <Compile Include="Infrastructure\IUserInteractionManager.cs" />
+    <Compile Include="Infrastructure\UserInteractionManager.cs" />
+    <Compile Include="Utils\BooleanToCollapsedVisibilityConverter.cs" />
+    <Compile Include="WizardSteps\FileList\FileListView.xaml.cs">
+      <DependentUpon>FileListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WizardSteps\FileList\FileListViewModel.cs" />
+    <Compile Include="WizardSteps\FolderSelector\FolderSelectorView.xaml.cs">
       <DependentUpon>FolderSelectorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FolderSelector\FolderSelectorViewModel.cs" />
+    <Compile Include="WizardSteps\FolderSelector\FolderSelectorViewModel.cs" />
     <Compile Include="Infrastructure\INavigationManager.cs" />
     <Compile Include="Infrastructure\NavigationManager.cs" />
     <Compile Include="IViewModel.cs" />
@@ -70,7 +81,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FolderSelector\FolderSelectorView.xaml">
+    <Page Include="Resources\SearchTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WizardSteps\FileList\FileListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WizardSteps\FolderSelector\FolderSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

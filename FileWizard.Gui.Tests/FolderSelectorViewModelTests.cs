@@ -1,21 +1,20 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FileWizard.Gui.FolderSelector;
+using FileWizard.Gui.WizardSteps;
 using FileWizard.Gui.Tests.Fakes;
 
 namespace FileWizard.Gui.Tests
 {
     [TestClass]
-    public class FolderSelectorViewModelTests
+    public class FolderSelectorViewModelTests : BaseTest
     {
         FolderSelectorViewModel _sut;
-        NavigationManagerMock _navigationManagerMock;
 
         [TestInitialize]
         public void TestInit()
         {
-            _navigationManagerMock = new NavigationManagerMock();
-            _sut = new FolderSelectorViewModel(_navigationManagerMock);
+            BaseInit();
+            _sut = new FolderSelectorViewModel(_navigationManagerMock, _fileRepositoryMock);
         }
 
 
@@ -36,13 +35,24 @@ namespace FileWizard.Gui.Tests
         }
 
         [TestMethod]
-        public void WhenSelectedFolderIsNotEmpty_GoToNextStepIsEnabled()
+        public void WhenSelectedFolderIsNotEmpty_AndFolderExists_GoToNextStepIsEnabled()
+        {
+            _sut.FolderPath = "SomeFolderPath";
+            _fileRepositoryMock.SetupDoesFolderExist = true;
+
+            var result = _sut.GoToNextStepCommand.CanExecute(null);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void WhenSelectedFolderIsNotEmpty_AndFolderDoesNotExist_GoToNextStepIsDisabled()
         {
             _sut.FolderPath = "SomeFolderPath";
 
             var result = _sut.GoToNextStepCommand.CanExecute(null);
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [TestMethod]
@@ -78,6 +88,15 @@ namespace FileWizard.Gui.Tests
             _sut.CancelCommand.Execute(null);
 
             Assert.IsTrue(_navigationManagerMock.CloseWindowWasCalled);
+        }
+
+        [TestMethod]
+        public void WhenGoNextStep_FolderPathChosenEventInvoked()
+        {
+            _sut.FolderPath = "SomePath";
+            _sut.GoToNextStepCommand.Execute(null);
+
+            Assert.AreEqual(_sut.FolderPath, _navigationManagerMock.ChosenFolder);
         }
     }
 }

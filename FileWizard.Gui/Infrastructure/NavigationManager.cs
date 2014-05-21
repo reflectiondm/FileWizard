@@ -32,5 +32,13 @@ namespace FileWizard.Gui.Infrastructure
 
         public event EventHandler OnToPreviousStep = delegate { };
         private MainWindow _mainWindow;
+
+
+        public void ChooseFolder(string path)
+        {
+            OnFolderChosen(this, new FolderChosenEventArgs(path));
+        }
+
+        public event EventHandler<FolderChosenEventArgs> OnFolderChosen = delegate { };
     }
 }
