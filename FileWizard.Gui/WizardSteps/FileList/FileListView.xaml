@@ -6,10 +6,15 @@
              xmlns:local ="clr-namespace:FileWizard.Gui.Controls"
              xmlns:u ="clr-namespace:FileWizard.Gui.Utils"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             FocusManager.FocusedElement="{Binding ElementName=searchBox}">
     <UserControl.Resources>
         <u:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding OpenFilesCommand}" Key="Enter"/>
+        <KeyBinding Command="{Binding CancelCommand}" Key="Escape"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -26,7 +31,8 @@
                       IsChecked="{Binding IsRecoursive, UpdateSourceTrigger=PropertyChanged}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"/>
-            <local:SearchTextBox Grid.Column="1"
+            <local:SearchTextBox x:Name="searchBox"
+                                 Grid.Column="1"
                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
@@ -36,7 +42,8 @@
         <DataGrid x:Name="dataGrid" Grid.Row="2" ItemsSource="{Binding FileList}" AutoGenerateColumns="False"
                   SelectionMode="Extended" SelectionUnit="FullRow"
                   CanUserAddRows="False" CanUserDeleteRows="False"
-                  SelectionChanged="DataGrid_SelectionChanged">
+                  SelectionChanged="DataGrid_SelectionChanged"
+                  KeyboardNavigation.TabNavigation="Once">
             <DataGrid.CellStyle>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -56,7 +63,14 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="IsTabStop" Value="True"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="SizeToCells" MinWidth="40" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Size" Binding="{Binding Size}" Width="SizeToCells" MinWidth="35" IsReadOnly="True"/>
             </DataGrid.Columns>

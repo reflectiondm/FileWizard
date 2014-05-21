@@ -7,6 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              FocusManager.FocusedElement="{Binding ElementName=folderPathTextBox}">
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding GoToNextStepCommand}" Key="Enter"/>
+        <KeyBinding Command="{Binding CancelCommand}" Key="Escape"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
