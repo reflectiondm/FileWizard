@@ -32,6 +32,7 @@ namespace FileWizard.Gui.WizardSteps
             //and WPF doesn not have built in Folder Dialog.
             using (var openFolderDialog = new Forms.FolderBrowserDialog())
             {
+                openFolderDialog.SelectedPath = System.IO.Path.GetFullPath(folderPathTextBox.Text);
                 var result = openFolderDialog.ShowDialog();
                 if (result == Forms.DialogResult.Cancel)
                     return;
