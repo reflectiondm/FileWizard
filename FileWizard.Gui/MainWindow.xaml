@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local ="clr-namespace:FileWizard.Gui"
-        Title="MainWindow" Height="357" Width="562">
+        Title="File wizard" Height="357" Width="562"
+        Icon="../Resources/Images/search.png">
     <ContentPresenter Content="{Binding ActiveViewModel}"/>
 </Window>

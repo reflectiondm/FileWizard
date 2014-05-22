@@ -7,4 +7,7 @@
     <DataTemplate DataType="{x:Type local:FileListViewModel}">
         <local:FileListView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:DetailsViewModel}">
+        <local:DetailsView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

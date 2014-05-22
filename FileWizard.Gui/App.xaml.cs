@@ -23,7 +23,7 @@ namespace FileWizard.Gui
             MainWindow mainWindow = new MainWindow();
             INavigationManager navigationManager = new NavigationManager(mainWindow);
             IFileRepository fileRepository = new FileRepository();
-            IUserInteractionManager userInterationManager = new UserInteractionManager();
+            IUserInteractionManager userInterationManager = new UserInteractionManager(mainWindow);
             var folderSelectorViewModel = new FolderSelectorViewModel(navigationManager, fileRepository);
             var fileListViewModel = new FileListViewModel(navigationManager, fileRepository, userInterationManager);
             var viewModels = new IViewModel[] 

@@ -15,5 +15,19 @@ namespace FileWizard.Gui.Tests.Fakes
         {
             OpenWasCalled = true;
         }
+
+        public override void OpenFolder()
+        {
+            OpenFolderWasCalled = true;
+        }
+
+        public override void CopyPathToClipboard()
+        {
+            CopyPathWasCalled = true;
+        }
+
+        public bool OpenFolderWasCalled { get; set; }
+
+        public bool CopyPathWasCalled { get; set; }
     }
 }

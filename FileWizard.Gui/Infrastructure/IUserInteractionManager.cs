@@ -9,5 +9,7 @@ namespace FileWizard.Gui.Infrastructure
     public interface IUserInteractionManager
     {
         bool AskUserConfirmation(string confirmationMessage);
+
+        void ShowModalDialog(IViewModel dialogViewModel, string title);
     }
 }
