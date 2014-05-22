@@ -29,7 +29,7 @@ namespace FileWizard.Gui.WizardSteps
             _navigationManager.OnFolderChosen += _navigationManager_OnFolderChosen;
             _fileRepository = fileRepository;
             _userInteractionManager = userInteractionManager;
-            _cancelCommand = new DelegateCommand(d => _navigationManager.GoToPreviousView());
+            _cancelCommand = new DelegateCommand(d => GoToFolderSelector());
             _openFilesCommand = new DelegateCommand(d => OpenSelectedFiles(), d => CanOpenSelectedFiles());
 
             //Should any commands be added to context menu, it should be moved to separate menu view model.
@@ -37,6 +37,14 @@ namespace FileWizard.Gui.WizardSteps
             _copyToClipboadCommand = new DelegateCommand(d => CopyToClipboard());
             _showDetailsCommand = new DelegateCommand(d => ShowDetails());
             FileList = new ObservableCollection<FileData>();
+        }
+
+        private void GoToFolderSelector()
+        {
+            IsRecoursive = false;
+            SearchText = string.Empty;
+            ClearData();
+            _navigationManager.GoToPreviousView();
         }
 
         private void ShowDetails()

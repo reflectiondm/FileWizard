@@ -159,5 +159,17 @@ namespace FileWizard.Gui.Tests
 
             Assert.IsTrue(_userInteractionManager.ShowModalDialogWasCalled);
         }
+
+        [TestMethod]
+        public void CancelCommandInvoked_ViewModelStateIsReset()
+        {
+            _sut.IsRecoursive = true;
+            _sut.SearchText = "some text";
+            
+            _sut.CancelCommand.Execute(null);
+
+            Assert.IsFalse(_sut.IsRecoursive);
+            Assert.IsTrue(string.IsNullOrEmpty(_sut.SearchText));
+        }
     }
 }
