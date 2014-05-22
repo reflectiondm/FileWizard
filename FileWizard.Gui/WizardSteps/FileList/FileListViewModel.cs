@@ -31,7 +31,7 @@ namespace FileWizard.Gui.WizardSteps
             _userInteractionManager = userInteractionManager;
             _cancelCommand = new DelegateCommand(d => _navigationManager.GoToPreviousView());
             _openFilesCommand = new DelegateCommand(d => OpenSelectedFiles(), d => CanOpenSelectedFiles());
-            
+
             //Should any commands be added to context menu, it should be moved to separate menu view model.
             _showInFolderCommand = new DelegateCommand(d => ShowInFolder());
             _copyToClipboadCommand = new DelegateCommand(d => CopyToClipboard());
@@ -46,7 +46,7 @@ namespace FileWizard.Gui.WizardSteps
                 return;
 
             var detailsViewModel = new DetailsViewModel(SelectedItem);
-            _userInteractionManager.ShowModalDialog(detailsViewModel, "File details");
+            _userInteractionManager.ShowModalDialog(detailsViewModel, string.Format("Details: {0}", fileData.Name + fileData.Type));
         }
 
         private void CopyToClipboard()
@@ -243,7 +243,7 @@ namespace FileWizard.Gui.WizardSteps
         private bool _isRecoursive;
         private string _currentPath;
         private CancellationTokenSource _cancellation;
-        
+
         public bool IsRecoursive
         {
             get { return _isRecoursive; }

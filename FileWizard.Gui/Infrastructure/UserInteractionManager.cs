@@ -36,7 +36,7 @@ namespace FileWizard.Gui.Infrastructure
             window.ResizeMode = ResizeMode.NoResize;
             window.Owner = _parentWindow;
             window.Icon = _parentWindow.Icon;
-            window.ShowDialog();
+            window.Show();
         }
     }
 }

@@ -150,9 +150,11 @@ namespace FileWizard.Gui.Tests
         [TestMethod]
         public void ShowDetailsInvoked_UserInteractionManager_ShowModalDialogInvoked()
         {
-            var fileDataMock = new FakeFileData();
+            var fileDataMock = new FakeFileData() { 
+            Name = "Name",
+            Type = ".txt"};
             _sut.SelectedItem = fileDataMock;
-            _userInteractionManager.ShowModal_ExpectedTitle = "File details";
+            _userInteractionManager.ShowModal_ExpectedTitle = "Details: Name.txt";
             _sut.ShowDetailsCommand.Execute(null);
 
             Assert.IsTrue(_userInteractionManager.ShowModalDialogWasCalled);
