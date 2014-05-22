@@ -12,18 +12,25 @@ namespace FileWizard.Gui.Infrastructure
     {
         public IEnumerable<FileData> GetFileData(string folderPath)
         {
-            if (!DoesFolderExist(folderPath))
-                throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
-
-            var files = Directory.GetFiles(folderPath);
-            var result = new List<FileData>();
-            foreach (var file in files)
+            try
             {
-                var data = PopulateFileData(file);
-                result.Add(data);
-            }
+                if (!DoesFolderExist(folderPath))
+                    throw new InvalidOperationException(string.Format("Folder {0} does not exist", folderPath));
 
-            return result;
+                var files = Directory.GetFiles(folderPath);
+                var result = new List<FileData>();
+                foreach (var file in files)
+                {
+                    var data = PopulateFileData(file);
+                    result.Add(data);
+                }
+
+                return result;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Enumerable.Empty<FileData>();
+            }
         }
 
         public async Task<IEnumerable<FileData>> GetFileDataAsync(string folderPath)
@@ -52,7 +59,7 @@ namespace FileWizard.Gui.Infrastructure
                 Size = size,
                 FullPath = file,
                 Folder = folder,
-                CreationTime= creationTime,
+                CreationTime = creationTime,
                 UpdateTime = updateTime,
             };
         }
@@ -72,7 +79,14 @@ namespace FileWizard.Gui.Infrastructure
 
         public IEnumerable<string> GetInnerFolders(string folderPath)
         {
-            return Directory.GetDirectories(folderPath);
+            try
+            {
+                return Directory.GetDirectories(folderPath);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Enumerable.Empty<string>();
+            }
         }
     }
 }
