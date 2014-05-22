@@ -72,7 +72,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="SizeToCells" MinWidth="40" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Size" Binding="{Binding Size}" Width="SizeToCells" MinWidth="35" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Size (bytes)" Binding="{Binding Size}" Width="SizeToCells" MinWidth="75" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 
