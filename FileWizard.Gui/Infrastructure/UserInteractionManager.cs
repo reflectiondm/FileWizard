@@ -9,6 +9,12 @@ namespace FileWizard.Gui.Infrastructure
 {
     public class UserInteractionManager : IUserInteractionManager
     {
+        private Window _parentWindow;
+        public UserInteractionManager(Window parentWindow)
+        {
+            _parentWindow = parentWindow;
+        }
+
         public bool AskUserConfirmation(string confirmationMessage)
         {
             var result = MessageBox.Show(confirmationMessage, "Please confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -28,6 +34,8 @@ namespace FileWizard.Gui.Infrastructure
             window.ShowInTaskbar = false;
             window.SizeToContent = SizeToContent.WidthAndHeight;
             window.ResizeMode = ResizeMode.NoResize;
+            window.Owner = _parentWindow;
+            window.Icon = _parentWindow.Icon;
             window.ShowDialog();
         }
     }
