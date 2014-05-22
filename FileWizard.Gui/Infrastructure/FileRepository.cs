@@ -41,26 +41,18 @@ namespace FileWizard.Gui.Infrastructure
         private FileData PopulateFileData(string file)
         {
             var fileInfo = new FileInfo(file);
-            var fileName = Path.GetFileNameWithoutExtension(file);
-            var folder = fileInfo.DirectoryName;
-            var type = fileInfo.Extension;
-            var size = fileInfo.Length;
-            var creationTime = fileInfo.CreationTime;
-            var updateTime = fileInfo.LastWriteTime;
 
-            //var sysIcon = System.Drawing.Icon.ExtractAssociatedIcon(file);
-            //var wpfIcon = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(sysIcon.Handle,
-            //    System.Windows.Int32Rect.Empty,
-            //    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
             return new FileData()
             {
-                Name = fileName,
-                Type = type,
-                Size = size,
-                FullPath = file,
-                Folder = folder,
-                CreationTime = creationTime,
-                UpdateTime = updateTime,
+                Name = Path.GetFileNameWithoutExtension(file),
+                Type = fileInfo.Extension,
+                Size = fileInfo.Length,
+                FullPath = Path.GetFullPath(file),
+                Folder = fileInfo.DirectoryName,
+                CreationTime = fileInfo.CreationTime,
+                UpdateTime = fileInfo.LastWriteTime,
+                AccessTime = fileInfo.LastAccessTime,
+                IsReadonly = fileInfo.IsReadOnly
             };
         }
 

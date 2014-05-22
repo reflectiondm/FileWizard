@@ -21,12 +21,13 @@ namespace FileWizard.Gui.Infrastructure
         {
             //Probably in future IDialogViewModel interface should be introduced,
             //with dialog-related properties defined such as title, icon, etc.
-            //for now it is enough
+            //for now that is enough
             var window = new Window();
             window.Title = title;
             window.Content = dialogViewModel;
             window.ShowInTaskbar = false;
             window.SizeToContent = SizeToContent.WidthAndHeight;
+            window.ResizeMode = ResizeMode.NoResize;
             window.ShowDialog();
         }
     }

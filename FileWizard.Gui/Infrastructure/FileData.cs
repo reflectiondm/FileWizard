@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace FileWizard.Gui.Infrastructure
 {
@@ -40,5 +41,21 @@ namespace FileWizard.Gui.Infrastructure
         }
 
         public DateTime UpdateTime { get; set; }
+
+        public ImageSource Icon
+        {
+            get
+            {
+                var sysIcon = System.Drawing.Icon.ExtractAssociatedIcon(FullPath);
+                var wpfIcon = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(sysIcon.Handle,
+                    System.Windows.Int32Rect.Empty,
+                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                return wpfIcon;
+            }
+        }
+
+        public DateTime AccessTime { get; set; }
+
+        public bool IsReadonly { get; set; }
     }
 }
